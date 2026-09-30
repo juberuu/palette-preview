@@ -82,8 +82,3 @@ body.dark .swatch {
   border: 1px solid currentColor;
   margin-bottom: 0.4rem;
 }
-
-.contrast {
-  margin: 0 0 1.25rem;
-  font-size: 0.95rem;
-}
