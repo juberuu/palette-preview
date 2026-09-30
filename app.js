@@ -20,6 +20,7 @@ function render() {
     input.addEventListener("input", (event) => {
       colors[index] = event.target.value;
       chip.style.background = event.target.value;
+      hex.value = event.target.value;
     });
 
     const hex = document.createElement("input");
@@ -34,6 +35,17 @@ function render() {
       hex.value = next;
     });
 
+    const copy = document.createElement("button");
+    copy.type = "button";
+    copy.textContent = "Copy hex";
+    copy.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(toHex(colors[index]));
+      copy.textContent = "Copied";
+      setTimeout(() => {
+        copy.textContent = "Copy hex";
+      }, 1200);
+    });
+
     const remove = document.createElement("button");
     remove.type = "button";
     remove.textContent = "Remove";
@@ -42,7 +54,7 @@ function render() {
       render();
     });
 
-    card.append(chip, input, hex, remove);
+    card.append(chip, input, hex, copy, remove);
     swatchesEl.append(card);
   }
 }
