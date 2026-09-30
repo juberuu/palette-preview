@@ -2,6 +2,7 @@ const DEFAULT_COLORS = ["#1f1a16", "#c45c26", "#e8dccf", "#3d6b5a"];
 
 const swatchesEl = document.getElementById("swatches");
 const addButton = document.getElementById("add-swatch");
+const themeButton = document.getElementById("theme-toggle");
 
 function render() {
   swatchesEl.innerHTML = "";
@@ -71,5 +72,8 @@ const colors = [...DEFAULT_COLORS];
 addButton.addEventListener("click", () => {
   colors.push("#888888");
   render();
+});
+themeButton.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
 });
 render();

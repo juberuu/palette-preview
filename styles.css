@@ -1,8 +1,15 @@
+
 :root {
   color-scheme: light;
   font-family: Georgia, "Times New Roman", serif;
   background: #f6f1ea;
   color: #1f1a16;
+}
+
+body.dark {
+  color-scheme: dark;
+  background: #161311;
+  color: #f6f1ea;
 }
 
 body {
@@ -22,6 +29,8 @@ h1 {
 
 .controls {
   margin: 1.5rem 0;
+  display: flex;
+  gap: 0.75rem;
 }
 
 button {
@@ -30,6 +39,11 @@ button {
   border: 0;
   padding: 0.6rem 1rem;
   cursor: pointer;
+}
+
+body.dark button {
+  background: #f6f1ea;
+  color: #161311;
 }
 
 .swatches {
@@ -42,6 +56,11 @@ button {
   border: 1px solid #d9cfc4;
   background: #fff;
   padding: 0.75rem;
+}
+
+body.dark .swatch {
+  border-color: #3a332c;
+  background: #221e1a;
 }
 
 .chip {
@@ -59,6 +78,7 @@ button {
 .swatch button {
   width: 100%;
   background: transparent;
-  color: #1f1a16;
-  border: 1px solid #1f1a16;
+  color: inherit;
+  border: 1px solid currentColor;
+  margin-bottom: 0.4rem;
 }
