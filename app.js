@@ -1,9 +1,27 @@
 const DEFAULT_COLORS = ["#1f1a16", "#c45c26", "#e8dccf", "#3d6b5a"];
+const STORAGE_KEY = "palette-preview-colors";
 
 const swatchesEl = document.getElementById("swatches");
 const addButton = document.getElementById("add-swatch");
 const themeButton = document.getElementById("theme-toggle");
 const contrastEl = document.getElementById("contrast");
+
+function loadColors() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (Array.isArray(parsed) && parsed.length) {
+      return parsed.map(toHex);
+    }
+  } catch {
+    // Ignore invalid saved state.
+  }
+  return [...DEFAULT_COLORS];
+}
+
+function saveColors() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(colors));
+}
 
 function render() {
   swatchesEl.innerHTML = "";
@@ -23,6 +41,7 @@ function render() {
       colors[index] = event.target.value;
       chip.style.background = event.target.value;
       hex.value = event.target.value;
+      saveColors();
       updateContrast();
     });
 
@@ -36,6 +55,7 @@ function render() {
       input.value = next;
       chip.style.background = next;
       hex.value = next;
+      saveColors();
       updateContrast();
     });
 
@@ -55,6 +75,7 @@ function render() {
     remove.textContent = "Remove";
     remove.addEventListener("click", () => {
       colors.splice(index, 1);
+      saveColors();
       render();
     });
 
@@ -99,9 +120,10 @@ function toHex(value) {
   return "#888888";
 }
 
-const colors = [...DEFAULT_COLORS];
+const colors = loadColors();
 addButton.addEventListener("click", () => {
   colors.push("#888888");
+  saveColors();
   render();
 });
 themeButton.addEventListener("click", () => {
